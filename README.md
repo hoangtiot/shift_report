@@ -25,6 +25,7 @@
 
 ## :compass: Roadmap
 
+* [x] Init and models
 * [ ] Record transactions
 * [ ] Calculate total
 * [ ] Send notifications
@@ -33,11 +34,11 @@
 
 Clone the repository:
 ```bash
-git clone https://github.com/dev-tuanvv/BE-TC.git
+git clone [https://github.com/dev-tuanvv/BE-TC.git](https://github.com/hoangtiot/shift_report.git)
 ```
 Navigate to the project directory:
 ```bash
-cd BE-TC
+cd report
 ```
 Install MySQL locally or use a cloud-based MySQL service. Create a new database named capstone_db. Update the MySQL connection settings in the application.properties file.
 Build the project image using Dockerfile
