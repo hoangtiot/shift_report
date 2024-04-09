@@ -7,6 +7,7 @@ import com.hoangtiot.report.service.DebtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +26,13 @@ public class DebtServiceImpl implements DebtService {
     }
 
     @Override
-    public List<Debt> findByDate(String date) {
-        return debtRepository.findByDate(date);
+    public List<Debt> findByDate(Date date) {
+        return debtRepository.findByReportTime(date);
     }
 
     @Override
     public List<Debt> findByDebtor(String debtor) {
-        return debtRepository.findByDebtor(debtor);
+        return debtRepository.findByDebtorName(debtor);
     }
 
     @Override

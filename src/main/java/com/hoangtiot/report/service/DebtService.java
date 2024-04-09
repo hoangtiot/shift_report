@@ -4,6 +4,7 @@ import com.hoangtiot.report.model.Debt;
 import com.hoangtiot.report.model.ShiftReport;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public interface DebtService {
 
     List<Debt> findByReport(ShiftReport report);
 
-    List<Debt> findByDate(String date);
+    List<Debt> findByDate(Date date);
 
     List<Debt> findByDebtor(String debtor);
 
