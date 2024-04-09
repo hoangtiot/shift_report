@@ -48,6 +48,7 @@ docker build . -t tutorcenter
 Run the image created in a container
 ```bash
 docker run -p 9000:8080 tutorcenter
+```
 
 ## :handshake: Contact
 
