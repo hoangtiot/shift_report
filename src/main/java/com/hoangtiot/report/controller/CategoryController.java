@@ -22,6 +22,11 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.findAllAvailable());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> findById(@PathVariable int id){
+        return ResponseEntity.ok().body(categoryService.findById(id).orElse(null));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<String> addCategory(@RequestBody Category category){
         categoryService.addCategory(category);
