@@ -31,7 +31,10 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public boolean addExpense(Expense expense) {
-        expenseRepository.save(expense);
-        return true;
+        if (!expenseRepository.existsById(expense.getId())){
+            expenseRepository.save(expense);
+            return true;
+        }
+        return false;
     }
 }

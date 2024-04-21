@@ -27,20 +27,29 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public boolean addCategory(Category category) {
-        categoryRepository.save(category);
-        return true;
+        if (!categoryRepository.existsById(category.getId())) {
+            categoryRepository.save(category);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean updateCategory(Category category) {
-        categoryRepository.save(category);
-        return true;
+        if (categoryRepository.existsById(category.getId())) {
+            categoryRepository.save(category);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean disableCategory(Category category) {
         category.setDisable(true);
-        categoryRepository.save(category);
-        return true;
+        if (!categoryRepository.existsById(category.getId())) {
+            categoryRepository.save(category);
+            return true;
+        }
+        return false;
     }
 }

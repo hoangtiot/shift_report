@@ -42,7 +42,10 @@ public class DebtServiceImpl implements DebtService {
 
     @Override
     public boolean addDebt(Debt debt) {
-        debtRepository.save(debt);
-        return true;
+        if (!debtRepository.existsById(debt.getId())){
+            debtRepository.save(debt);
+            return true;
+        }
+        return false;
     }
 }

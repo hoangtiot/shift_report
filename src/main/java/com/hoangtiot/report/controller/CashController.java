@@ -26,7 +26,10 @@ public class CashController {
 
     @PutMapping("/withdraw/{amount}")
     public ResponseEntity<Double> withdraw(@PathVariable double amount){
-        cashService.withdraw(amount);
+        boolean rs = cashService.withdraw(amount);
+        if (!rs) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok().body(cashService.getCashOnHand());
     }
 }

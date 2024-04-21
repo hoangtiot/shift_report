@@ -22,11 +22,17 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 
     @Override
     public List<ShiftReport> findByDate(Date date) {
+        if (date.before(new Date(System.currentTimeMillis()))){
+            return null;
+        }
         return shiftReportRepository.findByTime(date);
     }
 
     @Override
     public List<ShiftReport> findByMonth(int month, int year) {
+        if (month<1 || month>12 || year<1990 || year>2100){
+            return null;
+        }
         return shiftReportRepository.findByYearAndMonth(year, month);
     }
 
@@ -37,7 +43,10 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 
     @Override
     public boolean addShiftReport(ShiftReport report) {
-        shiftReportRepository.save(report);
-        return true;
+        if(!shiftReportRepository.existsById(report.getId())){
+            shiftReportRepository.save(report);
+            return true;
+        }
+        return false;
     }
 }

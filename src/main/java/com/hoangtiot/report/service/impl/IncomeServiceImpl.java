@@ -32,7 +32,10 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public boolean addIncome(Income income) {
-        incomeRepository.save(income);
-        return true;
+        if(!incomeRepository.existsById(income.getId())){
+            incomeRepository.save(income);
+            return true;
+        }
+        return false;
     }
 }
