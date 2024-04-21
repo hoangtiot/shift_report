@@ -18,4 +18,6 @@ public interface ShiftReportService {
     Optional<ShiftReport> findById(int id);
 
     boolean addShiftReport(ShiftReport report);
+
+    boolean isExist(int id);
 }

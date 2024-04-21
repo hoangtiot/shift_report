@@ -49,4 +49,9 @@ public class ShiftReportServiceImpl implements ShiftReportService {
         }
         return false;
     }
+
+    @Override
+    public boolean isExist(int id) {
+        return shiftReportRepository.existsById(id);
+    }
 }

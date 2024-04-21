@@ -26,8 +26,11 @@ public class ExpenseController {
     }
 
     @GetMapping("/by_report/{rp_id}")
-    public ResponseEntity<List<Expense>> findByReport(@PathVariable int rp_id){
-        ShiftReport shiftReport = shiftReportService.findById(rp_id).orElse(null);
+    public ResponseEntity<List<Expense>> findByReport(@PathVariable int rp_id) {
+        ShiftReport shiftReport = null;
+        if (shiftReportService.isExist(rp_id)) {
+            shiftReport = shiftReportService.findById(rp_id).orElse(null);
+        }
         return ResponseEntity.ok().body(expenseService.findByReport(shiftReport));
     }
 
