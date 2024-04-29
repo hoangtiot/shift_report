@@ -21,7 +21,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public List<Expense> findByReport(ShiftReport report) {
-        return expenseRepository.findByReport(report);
+        return expenseRepository.findByShiftReport(report);
     }
 
     @Override

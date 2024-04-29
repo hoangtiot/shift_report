@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
-    List<Expense> findByReport(ShiftReport report);
+    List<Expense> findByShiftReport(ShiftReport report);
 }

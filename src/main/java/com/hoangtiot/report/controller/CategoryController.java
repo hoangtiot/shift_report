@@ -29,20 +29,26 @@ public class CategoryController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addCategory(@RequestBody Category category){
-        categoryService.addCategory(category);
-        return ResponseEntity.ok().body(category.getName());
+        String rs = "Add new category failed";
+        if(categoryService.addCategory(category))
+            rs="Add "+category.getName()+" successfully";
+        return ResponseEntity.ok().body(rs);
     }
 
     @PutMapping("/update")
     public ResponseEntity<String> updateCategory(@RequestBody Category category){
-        categoryService.updateCategory(category);
-        return ResponseEntity.ok().body(category.getName());
+        String rs = "Update failed";
+        if (categoryService.updateCategory(category))
+            rs = "Update "+category.getName()+" successfully";
+        return ResponseEntity.ok().body(rs);
     }
 
     @PutMapping("/disable")
     public ResponseEntity<String> disableCategory(@RequestBody Category category){
+        String rs = "Update failed";
         category.setDisable(true);
-        categoryService.updateCategory(category);
-        return ResponseEntity.ok().body(category.getName());
+        if (categoryService.updateCategory(category))
+            rs = "Update "+category.getName()+" successfully";
+        return ResponseEntity.ok().body(rs);
     }
 }

@@ -39,7 +39,9 @@ public class ShiftReportController {
 
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestBody ShiftReport shiftReport){
-        shiftReportService.addShiftReport(shiftReport);
-        return ResponseEntity.ok().body(shiftReport.toString());
+        String rs = "Add failed";
+        if (shiftReportService.addShiftReport(shiftReport))
+            rs = "Add "+shiftReport.toString()+" successfully";
+        return ResponseEntity.ok().body(rs);
     }
 }

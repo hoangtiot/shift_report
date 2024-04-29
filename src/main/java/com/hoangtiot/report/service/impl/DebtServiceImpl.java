@@ -22,12 +22,12 @@ public class DebtServiceImpl implements DebtService {
 
     @Override
     public List<Debt> findByReport(ShiftReport report) {
-        return debtRepository.findByReport(report);
+        return debtRepository.findByShiftReport(report);
     }
 
     @Override
     public List<Debt> findByDate(Date date) {
-        return debtRepository.findByReportTime(date);
+        return debtRepository.findByShiftReportTime(date);
     }
 
     @Override

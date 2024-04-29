@@ -36,7 +36,9 @@ public class IncomeController {
 
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestBody Income income){
-        incomeService.addIncome(income);
-        return ResponseEntity.ok().body("" +  income.getAmount() + income.getPaymentMethod());
+        String rs = "Add failed";
+        if (incomeService.addIncome(income))
+            rs = "Add " +income.toString()+ "succesfully";
+        return ResponseEntity.ok().body(rs);
     }
 }

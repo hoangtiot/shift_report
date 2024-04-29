@@ -41,7 +41,9 @@ public class ExpenseController {
 
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestBody Expense expense){
-        expenseService.addExpense(expense);
-        return ResponseEntity.ok().body(expense.getContent());
+        String rs = "Add failed";
+        if (expenseService.addExpense(expense))
+            rs = "Add "+expense.toString()+" successfully";
+        return ResponseEntity.ok().body(rs);
     }
 }

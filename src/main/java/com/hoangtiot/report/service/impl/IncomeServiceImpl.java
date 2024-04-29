@@ -22,7 +22,7 @@ public class IncomeServiceImpl implements IncomeService {
 
     @Override
     public List<Income> findByReport(ShiftReport report) {
-        return incomeRepository.findByReport(report);
+        return incomeRepository.findByShiftReport(report);
     }
 
     @Override

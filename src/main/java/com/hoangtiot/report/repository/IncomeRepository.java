@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface IncomeRepository extends JpaRepository<Income, Integer> {
-    List<Income> findByReport(ShiftReport report);
+    List<Income> findByShiftReport(ShiftReport report);
 }

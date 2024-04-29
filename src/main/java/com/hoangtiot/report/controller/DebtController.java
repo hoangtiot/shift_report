@@ -7,10 +7,7 @@ import com.hoangtiot.report.service.ShiftReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +42,13 @@ public class DebtController {
     @GetMapping("/{id}")
     public ResponseEntity<Debt> findById(@PathVariable int id){
         return ResponseEntity.ok().body(debtService.findById(id).orElse(null));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> add(Debt debt){
+        String rs = "Add failed";
+        if (debtService.addDebt(debt))
+            rs = "Add "+debt.toString()+" successfully";
+        return ResponseEntity.ok().body(rs);
     }
 }
