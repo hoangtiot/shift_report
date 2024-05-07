@@ -1,6 +1,7 @@
 package com.hoangtiot.report.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.Data;
 import com.hoangtiot.report.constant.PaymentMethod;
 

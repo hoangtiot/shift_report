@@ -1,5 +1,6 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.req.IncomeReqDto;
 import com.hoangtiot.report.model.Income;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.service.IncomeService;
@@ -38,10 +39,17 @@ public class IncomeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> add(@Valid @RequestBody Income income){
+    public ResponseEntity<String> add(@Valid @RequestBody IncomeReqDto incomeReqDto){
         String rs = "Add failed";
+        Income income = new Income();
+        incomeReqDto.toIncome(income);
+        ShiftReport shiftReport = null;
+        if (shiftReportService.isExist(incomeReqDto.rp_id)) {
+            shiftReport = shiftReportService.findById(incomeReqDto.rp_id).orElse(null);
+            income.setShiftReport(shiftReport);
+        }
         if (incomeService.addIncome(income))
-            rs = "Add " +income.toString()+ "succesfully";
+            rs = "Add " +incomeReqDto.toString()+ "succesfully";
         return ResponseEntity.ok().body(rs);
     }
 }
