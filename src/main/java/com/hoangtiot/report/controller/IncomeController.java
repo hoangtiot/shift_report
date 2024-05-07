@@ -4,6 +4,9 @@ import com.hoangtiot.report.model.Income;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.service.IncomeService;
 import com.hoangtiot.report.service.ShiftReportService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +29,7 @@ public class IncomeController {
     }
 
     @GetMapping("/by_report/{rp_id}")
-    public ResponseEntity<List<Income>> findByReport(@PathVariable int rp_id) {
+    public ResponseEntity<List<Income>> findByReport(@PathVariable @Min(1) @NotNull int rp_id) {
         ShiftReport shiftReport = null;
         if (shiftReportService.isExist(rp_id)) {
             shiftReport = shiftReportService.findById(rp_id).orElse(null);
@@ -35,7 +38,7 @@ public class IncomeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> add(@RequestBody Income income){
+    public ResponseEntity<String> add(@Valid @RequestBody Income income){
         String rs = "Add failed";
         if (incomeService.addIncome(income))
             rs = "Add " +income.toString()+ "succesfully";
