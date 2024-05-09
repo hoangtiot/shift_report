@@ -30,28 +30,27 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.findById(id).orElse(null));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> addCategory(@Valid @RequestBody Category category){
+    @PostMapping("/add/{categoryName}")
+    public ResponseEntity<String> addCategory(@PathVariable String categoryName){
         String rs = "Add new category failed";
-        if(categoryService.addCategory(category))
-            rs="Add "+category.getName()+" successfully";
+        if(categoryService.addCategory(categoryName))
+            rs="Add "+categoryName+" successfully";
         return ResponseEntity.ok().body(rs);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateCategory(@Valid @RequestBody Category category){
+    @PutMapping("/update/{id}/{newName}")
+    public ResponseEntity<String> updateCategory(@PathVariable String newName, @PathVariable int id){
         String rs = "Update failed";
-        if (categoryService.updateCategory(category))
-            rs = "Update "+category.getName()+" successfully";
+        if (categoryService.updateCategory(newName, id))
+            rs = "Update "+id+" successfully";
         return ResponseEntity.ok().body(rs);
     }
 
-    @PatchMapping("/disable")
-    public ResponseEntity<String> disableCategory(@Valid @RequestBody Category category){
+    @PatchMapping("/updateDisable/{id}")
+    public ResponseEntity<String> disableCategory(@PathVariable int id){
         String rs = "Update failed";
-        category.setDisable(true);
-        if (categoryService.updateCategory(category))
-            rs = "Update "+category.getName()+" successfully";
+        if (categoryService.updateDisableCategory(id))
+            rs = "Update disable status"+ id +" successfully";
         return ResponseEntity.ok().body(rs);
     }
 }

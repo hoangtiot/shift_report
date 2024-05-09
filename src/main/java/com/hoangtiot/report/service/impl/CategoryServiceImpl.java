@@ -26,8 +26,20 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean addCategory(Category category) {
-        if (!categoryRepository.existsById(category.getId())) {
+    public boolean addCategory(String categoryName) {
+        Category category = new Category();
+        category.setName(categoryName);
+        category.setDisable(false);
+        categoryRepository.save(category);
+
+        return true;
+    }
+
+    @Override
+    public boolean updateCategory(String newName, int id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category != null) {
+            category.setName(newName);
             categoryRepository.save(category);
             return true;
         }
@@ -35,18 +47,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean updateCategory(Category category) {
-        if (categoryRepository.existsById(category.getId())) {
-            categoryRepository.save(category);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean disableCategory(Category category) {
-        category.setDisable(true);
-        if (!categoryRepository.existsById(category.getId())) {
+    public boolean updateDisableCategory(int id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category != null) {
+            category.setDisable(!category.isDisable());
             categoryRepository.save(category);
             return true;
         }

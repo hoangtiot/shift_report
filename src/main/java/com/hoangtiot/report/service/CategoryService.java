@@ -11,9 +11,9 @@ public interface CategoryService {
     List<Category> findAllAvailable();
 
     Optional<Category> findById(int id);
-    boolean addCategory(Category category);
+    boolean addCategory(String categoryName);
 
-    boolean updateCategory(Category category);
+    boolean updateCategory(String newName, int id);
 
-    boolean disableCategory(Category category);
+    boolean updateDisableCategory(int id);
 }
