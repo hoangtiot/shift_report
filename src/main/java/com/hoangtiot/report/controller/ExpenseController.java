@@ -1,5 +1,7 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.res.ApiResponse;
+import com.hoangtiot.report.dto.res.ExpenseResDto;
 import com.hoangtiot.report.model.Expense;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.service.ExpenseService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,29 +27,39 @@ public class ExpenseController {
     private ShiftReportService shiftReportService;
 
     @GetMapping("/")
-    public ResponseEntity<List<Expense>> findAll(){
-        return ResponseEntity.ok().body(expenseService.findAll());
+    public ApiResponse<List<ExpenseResDto>> findAll(){
+        List<ExpenseResDto> listDto = new ArrayList<>();
+        for (Expense expense : expenseService.findAll()){
+            ExpenseResDto dto = new ExpenseResDto();
+            dto.fromExpense(expense);
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<ExpenseResDto>>builder().data(listDto).build();
     }
 
     @GetMapping("/by_report/{rp_id}")
-    public ResponseEntity<List<Expense>> findByReport(@PathVariable @Min(1) @NotNull int rp_id) {
-        ShiftReport shiftReport = null;
-        if (shiftReportService.isExist(rp_id)) {
-            shiftReport = shiftReportService.findById(rp_id).orElse(null);
+    public ApiResponse<List<ExpenseResDto>> findByReport(@PathVariable @Min(1) @NotNull int rp_id) {
+        List<ExpenseResDto> listDto = new ArrayList<>();
+        for (Expense expense : expenseService.findByReport(shiftReportService.findById(rp_id).orElse(null))){
+            ExpenseResDto dto = new ExpenseResDto();
+            dto.fromExpense(expense);
+            listDto.add(dto);
         }
-        return ResponseEntity.ok().body(expenseService.findByReport(shiftReport));
+        return ApiResponse.<List<ExpenseResDto>>builder().data(listDto).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Expense> findById(@PathVariable @Min(1) @NotNull int id){
-        return ResponseEntity.ok().body(expenseService.findById(id).orElse(null));
+    public ApiResponse<ExpenseResDto> findById(@PathVariable @Min(1) @NotNull int id){
+        ExpenseResDto dto = new ExpenseResDto();
+        dto.fromExpense(expenseService.findById(id).orElse(null));
+        return ApiResponse.<ExpenseResDto>builder().data(dto).build();
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> add(@Valid @RequestBody Expense expense){
-        String rs = "Add failed";
-        if (expenseService.addExpense(expense))
-            rs = "Add "+expense.toString()+" successfully";
-        return ResponseEntity.ok().body(rs);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<String> add(@Valid @RequestBody Expense expense){
+//        String rs = "Add failed";
+//        if (expenseService.addExpense(expense))
+//            rs = "Add "+expense.toString()+" successfully";
+//        return ResponseEntity.ok().body(rs);
+//    }
 }
