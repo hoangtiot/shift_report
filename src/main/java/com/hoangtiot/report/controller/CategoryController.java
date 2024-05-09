@@ -1,5 +1,7 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.res.ApiResponse;
+import com.hoangtiot.report.dto.res.CategoryResDto;
 import com.hoangtiot.report.model.Category;
 import com.hoangtiot.report.service.CategoryService;
 import jakarta.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,37 +23,44 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/")
-    public ResponseEntity<List<Category>> findAll(){
-
-        return ResponseEntity.ok().body(categoryService.findAllAvailable());
+    public ApiResponse<List<CategoryResDto>> findAll(){
+        List<CategoryResDto> listDto = new ArrayList<>();
+        for (Category category : categoryService.findAllAvailable()){
+            CategoryResDto dto = new CategoryResDto();
+            dto.fromCategory(category);
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<CategoryResDto>>builder().data(listDto).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable @Min(1) @NotNull int id){
-        return ResponseEntity.ok().body(categoryService.findById(id).orElse(null));
+    public ApiResponse<CategoryResDto> findById(@PathVariable @Min(1) @NotNull int id){
+        CategoryResDto dto = new CategoryResDto();
+        dto.fromCategory(categoryService.findById(id).orElse(null));
+        return ApiResponse.<CategoryResDto>builder().data(dto).build();
     }
 
     @PostMapping("/add/{categoryName}")
-    public ResponseEntity<String> addCategory(@PathVariable String categoryName){
+    public ApiResponse<String> addCategory(@PathVariable String categoryName){
         String rs = "Add new category failed";
         if(categoryService.addCategory(categoryName))
             rs="Add "+categoryName+" successfully";
-        return ResponseEntity.ok().body(rs);
+        return ApiResponse.<String>builder().data(rs).build();
     }
 
     @PutMapping("/update/{id}/{newName}")
-    public ResponseEntity<String> updateCategory(@PathVariable String newName, @PathVariable int id){
+    public ApiResponse<String> updateCategory(@PathVariable String newName, @PathVariable int id){
         String rs = "Update failed";
         if (categoryService.updateCategory(newName, id))
             rs = "Update "+id+" successfully";
-        return ResponseEntity.ok().body(rs);
+        return ApiResponse.<String>builder().data(rs).build();
     }
 
     @PatchMapping("/updateDisable/{id}")
-    public ResponseEntity<String> disableCategory(@PathVariable int id){
+    public ApiResponse<String> disableCategory(@PathVariable int id){
         String rs = "Update failed";
         if (categoryService.updateDisableCategory(id))
             rs = "Update disable status"+ id +" successfully";
-        return ResponseEntity.ok().body(rs);
+        return ApiResponse.<String>builder().data(rs).build();
     }
 }
