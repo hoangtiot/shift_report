@@ -1,6 +1,13 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.res.*;
+import com.hoangtiot.report.model.Debt;
+import com.hoangtiot.report.model.Expense;
+import com.hoangtiot.report.model.Income;
 import com.hoangtiot.report.model.ShiftReport;
+import com.hoangtiot.report.service.DebtService;
+import com.hoangtiot.report.service.ExpenseService;
+import com.hoangtiot.report.service.IncomeService;
 import com.hoangtiot.report.service.ShiftReportService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -12,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,34 +27,141 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/shift_report")
 public class ShiftReportController {
-    @Autowired
     private ShiftReportService shiftReportService;
+    private DebtService debtService;
+    private ExpenseService expenseService;
+    private IncomeService incomeService;
+
+    @Autowired
+    public ShiftReportController(IncomeService incomeService, ExpenseService expenseService, DebtService debtService, ShiftReportService shiftReportService) {
+        this.incomeService = incomeService;
+        this.expenseService = expenseService;
+        this.debtService = debtService;
+        this.shiftReportService = shiftReportService;
+    }
 
     @GetMapping("/")
-    public ResponseEntity<List<ShiftReport>> findAll(){
-        return ResponseEntity.ok().body(shiftReportService.findAll());
+    public ApiResponse<List<ShiftReportResDto>> findAll(){
+        List<ShiftReportResDto> listDto = new ArrayList<>();
+        for (ShiftReport shiftReport : shiftReportService.findAll()){
+            ShiftReportResDto dto = new ShiftReportResDto();
+            dto.fromShiftReport(shiftReport);
+
+            for (Debt debt : debtService.findByReport(shiftReport)){
+                DebtResDto debtResDto = new DebtResDto();
+                debtResDto.fromDebt(debt);
+                dto.getDebts().add(debtResDto);
+            }
+
+            for (Expense expense : expenseService.findByReport(shiftReport)){
+                ExpenseResDto expenseResDto = new ExpenseResDto();
+                expenseResDto.fromExpense(expense);
+                dto.getExpenses().add(expenseResDto);
+            }
+
+            for (Income income : incomeService.findByReport(shiftReport)){
+                IncomeResDto incomeResDto = new IncomeResDto();
+                incomeResDto.fromIncome(income);
+                dto.getIncomes().add(incomeResDto);
+            }
+
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<ShiftReportResDto>>builder().data(listDto).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ShiftReport> findById(@PathVariable @Min(1) @NotNull int id){
-        return ResponseEntity.ok().body(shiftReportService.findById(id).orElse(null));
+    public ApiResponse<ShiftReportResDto> findById(@PathVariable @Min(1) @NotNull int id){
+        ShiftReportResDto dto = new ShiftReportResDto();
+        ShiftReport shiftReport = shiftReportService.findById(id).orElse(null);
+        dto.fromShiftReport(shiftReport);
+
+        for (Debt debt : debtService.findByReport(shiftReport)){
+            DebtResDto debtResDto = new DebtResDto();
+            debtResDto.fromDebt(debt);
+            dto.getDebts().add(debtResDto);
+        }
+
+        for (Expense expense : expenseService.findByReport(shiftReport)){
+            ExpenseResDto expenseResDto = new ExpenseResDto();
+            expenseResDto.fromExpense(expense);
+            dto.getExpenses().add(expenseResDto);
+        }
+
+        for (Income income : incomeService.findByReport(shiftReport)){
+            IncomeResDto incomeResDto = new IncomeResDto();
+            incomeResDto.fromIncome(income);
+            dto.getIncomes().add(incomeResDto);
+        }
+
+        return ApiResponse.<ShiftReportResDto>builder().data(dto).build();
     }
 
     @GetMapping("/by_date/{date}")
-    public ResponseEntity<List<ShiftReport>> findByDate(@PathVariable @DateTimeFormat Date date){
-        return ResponseEntity.ok().body(shiftReportService.findByDate(date));
+    public ApiResponse<List<ShiftReportResDto>> findByDate(@PathVariable @DateTimeFormat Date date){
+        List<ShiftReportResDto> listDto = new ArrayList<>();
+        for (ShiftReport shiftReport : shiftReportService.findByDate(date)){
+            ShiftReportResDto dto = new ShiftReportResDto();
+            dto.fromShiftReport(shiftReport);
+
+            for (Debt debt : debtService.findByReport(shiftReport)){
+                DebtResDto debtResDto = new DebtResDto();
+                debtResDto.fromDebt(debt);
+                dto.getDebts().add(debtResDto);
+            }
+
+            for (Expense expense : expenseService.findByReport(shiftReport)){
+                ExpenseResDto expenseResDto = new ExpenseResDto();
+                expenseResDto.fromExpense(expense);
+                dto.getExpenses().add(expenseResDto);
+            }
+
+            for (Income income : incomeService.findByReport(shiftReport)){
+                IncomeResDto incomeResDto = new IncomeResDto();
+                incomeResDto.fromIncome(income);
+                dto.getIncomes().add(incomeResDto);
+            }
+
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<ShiftReportResDto>>builder().data(listDto).build();
     }
 
     @GetMapping("/month={month}+year={year}")
-    public ResponseEntity<List<ShiftReport>> findByMonthYear(@PathVariable @Min(1) @Max(12) @NotNull int month, @PathVariable @Min(1970) @Max(2070) int year){
-        return ResponseEntity.ok().body(shiftReportService.findByMonth(month, year));
+    public ApiResponse<List<ShiftReportResDto>> findByMonthYear(@PathVariable @Min(1) @Max(12) @NotNull int month, @PathVariable @Min(1970) @Max(2070) int year){
+        List<ShiftReportResDto> listDto = new ArrayList<>();
+        for (ShiftReport shiftReport : shiftReportService.findByMonth(month, year)){
+            ShiftReportResDto dto = new ShiftReportResDto();
+            dto.fromShiftReport(shiftReport);
+
+            for (Debt debt : debtService.findByReport(shiftReport)){
+                DebtResDto debtResDto = new DebtResDto();
+                debtResDto.fromDebt(debt);
+                dto.getDebts().add(debtResDto);
+            }
+
+            for (Expense expense : expenseService.findByReport(shiftReport)){
+                ExpenseResDto expenseResDto = new ExpenseResDto();
+                expenseResDto.fromExpense(expense);
+                dto.getExpenses().add(expenseResDto);
+            }
+
+            for (Income income : incomeService.findByReport(shiftReport)){
+                IncomeResDto incomeResDto = new IncomeResDto();
+                incomeResDto.fromIncome(income);
+                dto.getIncomes().add(incomeResDto);
+            }
+
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<ShiftReportResDto>>builder().data(listDto).build();
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> add(@Valid @RequestBody ShiftReport shiftReport){
-        String rs = "Add failed";
-        if (shiftReportService.addShiftReport(shiftReport))
-            rs = "Add "+shiftReport.toString()+" successfully";
-        return ResponseEntity.ok().body(rs);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<String> add(@Valid @RequestBody ShiftReport shiftReport){
+//        String rs = "Add failed";
+//        if (shiftReportService.addShiftReport(shiftReport))
+//            rs = "Add "+shiftReport.toString()+" successfully";
+//        return ResponseEntity.ok().body(rs);
+//    }
 }
