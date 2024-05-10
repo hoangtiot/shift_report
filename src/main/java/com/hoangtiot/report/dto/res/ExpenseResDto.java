@@ -26,6 +26,6 @@ public class ExpenseResDto {
         this.categoryName = expense.getCategory().getName();
         this.content = expense.getContent();
         this.amount = expense.getAmount();
-        this.time = expense.getShiftReport().getTime();
+        this.time = expense.getShiftReport()!=null?expense.getShiftReport().getTime():null;
     }
 }

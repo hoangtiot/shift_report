@@ -18,6 +18,6 @@ public class DebtResDto {
         this.billId = debt.getBillId();
         this.debtorName = debt.getDebtorName();
         this.amount = debt.getAmount();
-        this.time = debt.getShiftReport().getTime();
+        this.time = debt.getShiftReport()!=null?debt.getShiftReport().getTime():null;
     }
 }

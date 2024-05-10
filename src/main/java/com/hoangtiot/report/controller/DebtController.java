@@ -1,5 +1,6 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.req.DebtReqDto;
 import com.hoangtiot.report.dto.res.ApiResponse;
 import com.hoangtiot.report.dto.res.DebtResDto;
 import com.hoangtiot.report.model.Debt;
@@ -71,11 +72,14 @@ public class DebtController {
         return ApiResponse.<DebtResDto>builder().data(dto).build();
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<String> add(@Valid @RequestBody Debt debt){
-//        String rs = "Add failed";
-//        if (debtService.addDebt(debt))
-//            rs = "Add "+debt.toString()+" successfully";
-//        return ResponseEntity.ok().body(rs);
-//    }
+    @PostMapping("/add")
+    public ApiResponse<DebtResDto> add(@Valid @RequestBody DebtReqDto debtReqDto){
+        Debt debt = new Debt();
+        debtReqDto.toDebt(debt);
+        DebtResDto dto = new DebtResDto();
+        if (debtService.addDebt(debt)) {
+            dto.fromDebt(debt);
+        }
+        return ApiResponse.<DebtResDto>builder().data(dto).build();
+    }
 }

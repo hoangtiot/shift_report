@@ -3,6 +3,7 @@ package com.hoangtiot.report.controller;
 import com.hoangtiot.report.dto.req.IncomeReqDto;
 import com.hoangtiot.report.dto.res.ApiResponse;
 import com.hoangtiot.report.dto.res.IncomeResDto;
+import com.hoangtiot.report.dto.res.ShiftReportResDto;
 import com.hoangtiot.report.model.Income;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.service.IncomeService;
@@ -49,18 +50,14 @@ public class IncomeController {
         return ApiResponse.<List<IncomeResDto>>builder().data(listDto).build();
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<String> add(@Valid @RequestBody IncomeReqDto incomeReqDto){
-//        String rs = "Add failed";
-//        Income income = new Income();
-//        incomeReqDto.toIncome(income);
-//        ShiftReport shiftReport = null;
-//        if (shiftReportService.isExist(incomeReqDto.rp_id)) {
-//            shiftReport = shiftReportService.findById(incomeReqDto.rp_id).orElse(null);
-//            income.setShiftReport(shiftReport);
-//        }
-//        if (incomeService.addIncome(income))
-//            rs = "Add " +incomeReqDto.toString()+ "succesfully";
-//        return ResponseEntity.ok().body(rs);
-//    }
+    @PostMapping("/add")
+    public ApiResponse<IncomeResDto> add(@Valid @RequestBody IncomeReqDto incomeReqDto){
+        Income income = new Income();
+        incomeReqDto.toIncome(income);
+        IncomeResDto dto = new IncomeResDto();
+        if (incomeService.addIncome(income)){
+            dto.fromIncome(income);
+        }
+        return ApiResponse.<IncomeResDto>builder().data(dto).build();
+    }
 }

@@ -1,5 +1,6 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.req.ShiftReportReqDto;
 import com.hoangtiot.report.dto.res.*;
 import com.hoangtiot.report.model.Debt;
 import com.hoangtiot.report.model.Expense;
@@ -157,11 +158,14 @@ public class ShiftReportController {
         return ApiResponse.<List<ShiftReportResDto>>builder().data(listDto).build();
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<String> add(@Valid @RequestBody ShiftReport shiftReport){
-//        String rs = "Add failed";
-//        if (shiftReportService.addShiftReport(shiftReport))
-//            rs = "Add "+shiftReport.toString()+" successfully";
-//        return ResponseEntity.ok().body(rs);
-//    }
+    @PostMapping("/add")
+    public ApiResponse<ShiftReportResDto> add(@Valid @RequestBody ShiftReportReqDto shiftReportReqDto){
+        ShiftReport shiftReport = new ShiftReport();
+        shiftReportReqDto.toShiftReport(shiftReport);
+        ShiftReportResDto dto = new ShiftReportResDto();
+        if (shiftReportService.addShiftReport(shiftReport)){
+            dto.fromShiftReport(shiftReport);
+        }
+        return ApiResponse.<ShiftReportResDto>builder().data(dto).build();
+    }
 }

@@ -1,9 +1,11 @@
 package com.hoangtiot.report.controller;
 
+import com.hoangtiot.report.dto.req.ExpenseReqDto;
 import com.hoangtiot.report.dto.res.ApiResponse;
 import com.hoangtiot.report.dto.res.ExpenseResDto;
 import com.hoangtiot.report.model.Expense;
 import com.hoangtiot.report.model.ShiftReport;
+import com.hoangtiot.report.service.CategoryService;
 import com.hoangtiot.report.service.ExpenseService;
 import com.hoangtiot.report.service.ShiftReportService;
 import jakarta.validation.Valid;
@@ -25,6 +27,8 @@ public class ExpenseController {
     private ExpenseService expenseService;
     @Autowired
     private ShiftReportService shiftReportService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/")
     public ApiResponse<List<ExpenseResDto>> findAll(){
@@ -55,11 +59,15 @@ public class ExpenseController {
         return ApiResponse.<ExpenseResDto>builder().data(dto).build();
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<String> add(@Valid @RequestBody Expense expense){
-//        String rs = "Add failed";
-//        if (expenseService.addExpense(expense))
-//            rs = "Add "+expense.toString()+" successfully";
-//        return ResponseEntity.ok().body(rs);
-//    }
+    @PostMapping("/add")
+    public ApiResponse<ExpenseResDto> add(@Valid @RequestBody ExpenseReqDto expenseReqDto){
+        Expense expense = new Expense();
+        expenseReqDto.toExpense(expense);
+        expense.setCategory(categoryService.findById(expenseReqDto.getCategoryId()).orElse(null));
+        ExpenseResDto dto = new ExpenseResDto();
+        if (expenseService.addExpense(expense)){
+            dto.fromExpense(expense);
+        }
+        return ApiResponse.<ExpenseResDto>builder().data(dto).build();
+    }
 }

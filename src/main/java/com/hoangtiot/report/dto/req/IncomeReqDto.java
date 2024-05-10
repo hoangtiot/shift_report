@@ -28,5 +28,6 @@ public class IncomeReqDto implements Serializable {
         income.setId(this.id);
         income.setAmount(this.amount);
         income.setPaymentMethod(this.paymentMethod);
+        income.setShiftReport(null);
     }
 }

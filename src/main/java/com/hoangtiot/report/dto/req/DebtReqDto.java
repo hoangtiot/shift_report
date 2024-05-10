@@ -26,6 +26,6 @@ public class DebtReqDto {
         debt.setBillId(this.billId);
         debt.setDebtorName(this.debtorName);
         debt.setAmount(this.amount);
-
+        debt.setShiftReport(null);
     }
 }

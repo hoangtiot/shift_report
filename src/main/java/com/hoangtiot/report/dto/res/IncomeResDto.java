@@ -17,6 +17,6 @@ public class IncomeResDto {
         this.id = income.getId();
         this.paymentMethod = income.getPaymentMethod();
         this.amount = income.getAmount();
-        this.time = income.getShiftReport().getTime();
+        this.time = income.getShiftReport()!=null?income.getShiftReport().getTime():null;
     }
 }
