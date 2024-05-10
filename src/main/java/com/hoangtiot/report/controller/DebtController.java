@@ -64,6 +64,17 @@ public class DebtController {
         return ApiResponse.<List<DebtResDto>>builder().data(listDto).build();
     }
 
+    @GetMapping("/null_shift_report")
+    public ApiResponse<List<DebtResDto>> findByDebtor(){
+        List<DebtResDto> listDto = new ArrayList<>();
+        for (Debt debt : debtService.findByNullShiftReport()){
+            DebtResDto dto = new DebtResDto();
+            dto.fromDebt(debt);
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<DebtResDto>>builder().data(listDto).build();
+    }
+
     @GetMapping("/{id}")
     public ApiResponse<DebtResDto> findById(@PathVariable @Min(1) @NotNull int id){
         DebtResDto dto = new DebtResDto();

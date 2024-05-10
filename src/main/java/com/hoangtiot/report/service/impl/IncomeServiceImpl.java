@@ -38,4 +38,18 @@ public class IncomeServiceImpl implements IncomeService {
         }
         return false;
     }
+
+    @Override
+    public List<Income> findByNullShiftReport() {
+        return incomeRepository.findByShiftReport(null);
+    }
+
+    @Override
+    public boolean setShiftReport(List<Integer> incomeIds, ShiftReport shiftReport) {
+        for (Integer incomeId : incomeIds){
+            Income income = incomeRepository.findById(incomeId).orElse(null);
+            income.setShiftReport(shiftReport);
+        }
+        return true;
+    }
 }

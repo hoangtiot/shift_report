@@ -37,4 +37,18 @@ public class ExpenseServiceImpl implements ExpenseService {
         }
         return false;
     }
+
+    @Override
+    public List<Expense> findByNullShiftReport() {
+        return expenseRepository.findByShiftReport(null);
+    }
+
+    @Override
+    public boolean setShiftReport(List<Integer> expenseIds, ShiftReport shiftReport) {
+        for (Integer expenseId : expenseIds){
+            Expense expense = expenseRepository.findById(expenseId).orElse(null);
+            expense.setShiftReport(shiftReport);
+        }
+        return true;
+    }
 }

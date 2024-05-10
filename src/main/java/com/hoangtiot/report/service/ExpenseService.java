@@ -17,5 +17,9 @@ public interface ExpenseService {
 
     boolean addExpense(Expense expense);
 
+    List<Expense> findByNullShiftReport();
+
+    boolean setShiftReport(List<Integer> expenseIds, ShiftReport shiftReport);
+
     //update delete
 }

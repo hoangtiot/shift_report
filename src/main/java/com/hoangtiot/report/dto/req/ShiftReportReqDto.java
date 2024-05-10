@@ -17,9 +17,9 @@ public class ShiftReportReqDto {
     @Min(1)
     @NotNull(message = "Id can not be null")
     private int id;
-    private List<IncomeResDto> incomes;
-    private List<DebtResDto> debts;
-    private List<ExpenseResDto> expenses;
+    private List<Integer> incomeIds;
+    private List<Integer> debtIds;
+    private List<Integer> expenseIds;
     @Builder.Default
     private Date time = new Date(System.currentTimeMillis());
 

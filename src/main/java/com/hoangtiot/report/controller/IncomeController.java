@@ -50,6 +50,17 @@ public class IncomeController {
         return ApiResponse.<List<IncomeResDto>>builder().data(listDto).build();
     }
 
+    @GetMapping("/null_shift_report")
+    public ApiResponse<List<IncomeResDto>> findByReport() {
+        List<IncomeResDto> listDto = new ArrayList<>();
+        for (Income income : incomeService.findByNullShiftReport()){
+            IncomeResDto dto = new IncomeResDto();
+            dto.fromIncome(income);
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<IncomeResDto>>builder().data(listDto).build();
+    }
+
     @PostMapping("/add")
     public ApiResponse<IncomeResDto> add(@Valid @RequestBody IncomeReqDto incomeReqDto){
         Income income = new Income();

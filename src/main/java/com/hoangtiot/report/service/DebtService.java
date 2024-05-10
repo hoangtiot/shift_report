@@ -22,5 +22,9 @@ public interface DebtService {
 
     boolean addDebt(Debt debt);
 
+    List<Debt> findByNullShiftReport();
+
+    boolean setShiftReport(List<Integer> debtIds, ShiftReport shiftReport);
+
     //update.. delete..
 }

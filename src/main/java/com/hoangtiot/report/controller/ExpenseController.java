@@ -52,6 +52,17 @@ public class ExpenseController {
         return ApiResponse.<List<ExpenseResDto>>builder().data(listDto).build();
     }
 
+    @GetMapping("/null_shift_report")
+    public ApiResponse<List<ExpenseResDto>> findByReport() {
+        List<ExpenseResDto> listDto = new ArrayList<>();
+        for (Expense expense : expenseService.findByNullShiftReport()){
+            ExpenseResDto dto = new ExpenseResDto();
+            dto.fromExpense(expense);
+            listDto.add(dto);
+        }
+        return ApiResponse.<List<ExpenseResDto>>builder().data(listDto).build();
+    }
+
     @GetMapping("/{id}")
     public ApiResponse<ExpenseResDto> findById(@PathVariable @Min(1) @NotNull int id){
         ExpenseResDto dto = new ExpenseResDto();

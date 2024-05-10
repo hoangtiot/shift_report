@@ -15,4 +15,8 @@ public interface IncomeService {
     //by payment method
     Optional<Income> findById(int id);
     boolean addIncome(Income income);
+
+    List<Income> findByNullShiftReport();
+
+    boolean setShiftReport(List<Integer> incomeIds, ShiftReport shiftReport);
 }

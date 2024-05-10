@@ -48,4 +48,18 @@ public class DebtServiceImpl implements DebtService {
         }
         return false;
     }
+
+    @Override
+    public List<Debt> findByNullShiftReport() {
+        return debtRepository.findByShiftReport(null);
+    }
+
+    @Override
+    public boolean setShiftReport(List<Integer> debtIds, ShiftReport shiftReport) {
+        for (int debtId : debtIds){
+            Debt debt = debtRepository.findById(debtId).orElse(null);
+            debt.setShiftReport(shiftReport);
+        }
+        return true;
+    }
 }

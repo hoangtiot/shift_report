@@ -162,6 +162,11 @@ public class ShiftReportController {
     public ApiResponse<ShiftReportResDto> add(@Valid @RequestBody ShiftReportReqDto shiftReportReqDto){
         ShiftReport shiftReport = new ShiftReport();
         shiftReportReqDto.toShiftReport(shiftReport);
+        // set ShiftReport to debt, expense, income
+        debtService.setShiftReport(shiftReportReqDto.getDebtIds(), shiftReport);
+        expenseService.setShiftReport(shiftReportReqDto.getExpenseIds(), shiftReport);
+        incomeService.setShiftReport(shiftReportReqDto.getIncomeIds(), shiftReport);
+
         ShiftReportResDto dto = new ShiftReportResDto();
         if (shiftReportService.addShiftReport(shiftReport)){
             dto.fromShiftReport(shiftReport);
