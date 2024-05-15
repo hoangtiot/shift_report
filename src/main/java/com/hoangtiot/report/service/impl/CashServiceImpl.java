@@ -3,13 +3,14 @@ package com.hoangtiot.report.service.impl;
 import com.hoangtiot.report.model.Cash;
 import com.hoangtiot.report.repository.CashRepository;
 import com.hoangtiot.report.service.CashService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@NoArgsConstructor
 public class CashServiceImpl implements CashService {
 
-    @Autowired
     CashRepository cashRepository;
     @Override
     public double getCashOnHand() {

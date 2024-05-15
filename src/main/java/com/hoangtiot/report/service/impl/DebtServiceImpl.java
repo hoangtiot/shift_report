@@ -4,6 +4,7 @@ import com.hoangtiot.report.model.Debt;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.repository.DebtRepository;
 import com.hoangtiot.report.service.DebtService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@NoArgsConstructor
 public class DebtServiceImpl implements DebtService {
-    @Autowired
+
     DebtRepository debtRepository;
     @Override
     public List<Debt> findAll() {

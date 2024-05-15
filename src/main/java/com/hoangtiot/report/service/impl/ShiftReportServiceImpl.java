@@ -3,6 +3,7 @@ package com.hoangtiot.report.service.impl;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.repository.ShiftReportRepository;
 import com.hoangtiot.report.service.ShiftReportService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@NoArgsConstructor
 public class ShiftReportServiceImpl implements ShiftReportService {
 
-    @Autowired
     ShiftReportRepository shiftReportRepository;
     @Override
     public List<ShiftReport> findAll() {

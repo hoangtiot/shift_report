@@ -3,11 +3,11 @@ package com.hoangtiot.report.dto.req;
 import com.hoangtiot.report.model.Debt;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.Date;
 
-@Data
+@Getter
 public class DebtReqDto {
     @Min(1)
     @NotNull(message = "Id can not be null")

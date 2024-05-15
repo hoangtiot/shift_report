@@ -1,12 +1,16 @@
 package com.hoangtiot.report.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "cash")
 public class Cash implements Serializable {
     @Id

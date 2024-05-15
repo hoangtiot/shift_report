@@ -7,10 +7,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Setter
 public class ExpenseResDto {
     private int id;
 

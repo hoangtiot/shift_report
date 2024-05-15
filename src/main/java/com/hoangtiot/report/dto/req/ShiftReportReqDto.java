@@ -8,11 +8,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
 public class ShiftReportReqDto {
     @Min(1)
     @NotNull(message = "Id can not be null")

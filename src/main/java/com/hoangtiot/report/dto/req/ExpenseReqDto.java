@@ -4,10 +4,11 @@ import com.hoangtiot.report.model.Expense;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Date;
 
-@Data
+@Getter
 public class ExpenseReqDto {
     @Min(1)
     @NotNull(message = "Id can not be null")

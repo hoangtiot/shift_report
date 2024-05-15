@@ -6,10 +6,11 @@ import com.hoangtiot.report.util.EnumValue;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 
-@Data
+@Getter
 public class IncomeReqDto implements Serializable {
     @Min(1)
     @NotNull(message = "Id can not be null")

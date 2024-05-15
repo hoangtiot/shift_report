@@ -2,13 +2,17 @@ package com.hoangtiot.report.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.Data;
+import lombok.*;
 import com.hoangtiot.report.constant.PaymentMethod;
 
 import java.io.Serializable;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "income")
 public class Income implements Serializable {
     @Id

@@ -7,6 +7,7 @@ import com.hoangtiot.report.service.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@NoArgsConstructor
 @RequestMapping("/api/v1/category")
 public class CategoryController {
-    @Autowired
+
     private CategoryService categoryService;
 
     @GetMapping("/")

@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +27,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@NoArgsConstructor
 @RequestMapping("/api/v1/shift_report")
 public class ShiftReportController {
     private ShiftReportService shiftReportService;
@@ -33,13 +35,6 @@ public class ShiftReportController {
     private ExpenseService expenseService;
     private IncomeService incomeService;
 
-    @Autowired
-    public ShiftReportController(IncomeService incomeService, ExpenseService expenseService, DebtService debtService, ShiftReportService shiftReportService) {
-        this.incomeService = incomeService;
-        this.expenseService = expenseService;
-        this.debtService = debtService;
-        this.shiftReportService = shiftReportService;
-    }
 
     @GetMapping("/")
     public ApiResponse<List<ShiftReportResDto>> findAll(){

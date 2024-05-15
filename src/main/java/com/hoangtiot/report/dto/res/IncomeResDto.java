@@ -3,10 +3,11 @@ package com.hoangtiot.report.dto.res;
 import com.hoangtiot.report.constant.PaymentMethod;
 import com.hoangtiot.report.model.Income;
 import lombok.Data;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Setter
 public class IncomeResDto {
     private int id;
     private PaymentMethod paymentMethod;

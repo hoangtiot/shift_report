@@ -4,6 +4,7 @@ import com.hoangtiot.report.model.Expense;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.repository.ExpenseRepository;
 import com.hoangtiot.report.service.ExpenseService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@NoArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService {
-    @Autowired
+
     ExpenseRepository expenseRepository;
     @Override
     public List<Expense> findAll() {

@@ -4,6 +4,7 @@ import com.hoangtiot.report.model.Income;
 import com.hoangtiot.report.model.ShiftReport;
 import com.hoangtiot.report.repository.IncomeRepository;
 import com.hoangtiot.report.service.IncomeService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@NoArgsConstructor
 public class IncomeServiceImpl implements IncomeService {
 
-    @Autowired
     IncomeRepository incomeRepository;
     @Override
     public List<Income> findAll() {

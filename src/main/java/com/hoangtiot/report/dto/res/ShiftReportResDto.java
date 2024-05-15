@@ -7,11 +7,14 @@ import com.hoangtiot.report.model.ShiftReport;
 import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 public class ShiftReportResDto {
     private int id;
     private List<IncomeResDto> incomes;
