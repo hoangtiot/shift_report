@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class CashServiceImpl implements CashService {
 
+    @Autowired
     CashRepository cashRepository;
     @Override
     public double getCashOnHand() {

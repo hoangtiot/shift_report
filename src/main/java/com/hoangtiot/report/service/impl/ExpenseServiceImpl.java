@@ -15,6 +15,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService {
 
+    @Autowired
     ExpenseRepository expenseRepository;
     @Override
     public List<Expense> findAll() {

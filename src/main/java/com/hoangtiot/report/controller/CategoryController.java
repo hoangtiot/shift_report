@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@NoArgsConstructor
+
 @RequestMapping("/api/v1/category")
 public class CategoryController {
 
+    @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ApiResponse<List<CategoryResDto>> findAll(){
         List<CategoryResDto> listDto = new ArrayList<>();
         for (Category category : categoryService.findAllAvailable()){

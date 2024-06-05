@@ -15,6 +15,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class IncomeServiceImpl implements IncomeService {
 
+    @Autowired
     IncomeRepository incomeRepository;
     @Override
     public List<Income> findAll() {

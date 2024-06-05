@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,9 @@ import java.util.List;
 @Getter
 public class ShiftReportResDto {
     private int id;
-    private List<IncomeResDto> incomes;
-    private List<DebtResDto> debts;
-    private List<ExpenseResDto> expenses;
+    private List<IncomeResDto> incomes = new ArrayList<>();
+    private List<DebtResDto> debts = new ArrayList<>();
+    private List<ExpenseResDto> expenses = new ArrayList<>();
     private Date time;
 
     public void fromShiftReport(ShiftReport shiftReport){

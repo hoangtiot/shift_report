@@ -27,12 +27,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@NoArgsConstructor
 @RequestMapping("/api/v1/shift_report")
 public class ShiftReportController {
+    @Autowired
     private ShiftReportService shiftReportService;
+    @Autowired
     private DebtService debtService;
+    @Autowired
     private ExpenseService expenseService;
+    @Autowired
     private IncomeService incomeService;
 
 
@@ -96,8 +99,9 @@ public class ShiftReportController {
     @GetMapping("/by_date/{date}")
     public ApiResponse<List<ShiftReportResDto>> findByDate(@PathVariable @DateTimeFormat Date date){
         List<ShiftReportResDto> listDto = new ArrayList<>();
+        ShiftReportResDto dto = new ShiftReportResDto();
         for (ShiftReport shiftReport : shiftReportService.findByDate(date)){
-            ShiftReportResDto dto = new ShiftReportResDto();
+            dto = new ShiftReportResDto();
             dto.fromShiftReport(shiftReport);
 
             for (Debt debt : debtService.findByReport(shiftReport)){

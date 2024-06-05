@@ -14,6 +14,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
+    @Autowired
     CategoryRepository categoryRepository;
     @Override
     public List<Category> findAllAvailable() {

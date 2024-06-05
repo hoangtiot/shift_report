@@ -15,6 +15,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class ShiftReportServiceImpl implements ShiftReportService {
 
+    @Autowired
     ShiftReportRepository shiftReportRepository;
     @Override
     public List<ShiftReport> findAll() {

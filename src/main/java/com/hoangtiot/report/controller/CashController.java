@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@NoArgsConstructor
 @RequestMapping("/api/v1/cash")
 public class CashController {
 
+    @Autowired
     private CashService cashService;
 
     @GetMapping("/")

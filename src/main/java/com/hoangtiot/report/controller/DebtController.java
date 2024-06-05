@@ -22,11 +22,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@NoArgsConstructor
+
 @RequestMapping("/api/v1/debt")
 public class DebtController {
+    @Autowired
     private DebtService debtService;
-
+    @Autowired
     private ShiftReportService shiftReportService;
 
     @GetMapping("/")

@@ -22,10 +22,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@NoArgsConstructor
+
 @RequestMapping("/api/v1/income")
 public class IncomeController {
+    @Autowired
     private IncomeService incomeService;
+    @Autowired
     private ShiftReportService shiftReportService;
 
     @GetMapping("/")

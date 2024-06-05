@@ -16,6 +16,7 @@ import java.util.Optional;
 @NoArgsConstructor
 public class DebtServiceImpl implements DebtService {
 
+    @Autowired
     DebtRepository debtRepository;
     @Override
     public List<Debt> findAll() {
