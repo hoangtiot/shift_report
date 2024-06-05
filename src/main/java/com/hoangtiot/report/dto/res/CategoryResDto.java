@@ -4,9 +4,10 @@ import com.hoangtiot.report.model.Category;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+@Data
 public class CategoryResDto {
 //    @Min(1)
 //    @NotNull(message = "Id can not be null")

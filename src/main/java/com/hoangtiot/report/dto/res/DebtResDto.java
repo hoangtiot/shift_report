@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
+@Data
 public class DebtResDto {
     private int id;
     private int billId;

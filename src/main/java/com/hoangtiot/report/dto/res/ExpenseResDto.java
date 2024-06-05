@@ -11,7 +11,7 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
+@Data
 public class ExpenseResDto {
     private int id;
 

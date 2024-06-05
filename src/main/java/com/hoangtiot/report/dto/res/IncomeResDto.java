@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
+@Data
 public class IncomeResDto {
     private int id;
     private PaymentMethod paymentMethod;

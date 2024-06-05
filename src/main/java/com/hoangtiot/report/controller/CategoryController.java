@@ -26,7 +26,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/")
     public ApiResponse<List<CategoryResDto>> findAll(){
         List<CategoryResDto> listDto = new ArrayList<>();
         for (Category category : categoryService.findAllAvailable()){

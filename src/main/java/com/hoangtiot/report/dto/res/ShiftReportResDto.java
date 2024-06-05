@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 public class ShiftReportResDto {
     private int id;
     private List<IncomeResDto> incomes = new ArrayList<>();
